@@ -39,7 +39,7 @@
 
 </nav>
 <div id="app">本系列知识由“雨中飞奔的乌龟”总结发布</div>
-<div id="gitalk-container"></div>
+
 <script>
     window.$docsify = {
         name: 'advanced-java',
@@ -52,7 +52,7 @@
             '/'
         ],
         plugins: [
-            /*function (hook) {
+            function (hook) {
                 var footer = [
                     '<hr/>',
                     '<footer>',
@@ -63,7 +63,7 @@
                 hook.afterEach(function (html) {
                     return html + footer
                 })
-            }*/
+            }
         ]
     }
 </script>
@@ -80,7 +80,6 @@
         // facebook-like distraction free mode
         distractionFreeMode: false
     })
-    gitalk.render('gitalk-container')
 
 </script>
 
