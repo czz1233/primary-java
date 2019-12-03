@@ -8,6 +8,7 @@
     <meta name="description" content="互联网 Java 工程师初级知识完全扫盲，项目维护者：奔跑的乌龟">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
 </head>
@@ -38,6 +39,7 @@
 
 </nav>
 <div id="app">本系列知识由“雨中飞奔的乌龟”总结发布</div>
+
 <script>
     window.$docsify = {
         name: 'advanced-java',
@@ -65,6 +67,21 @@
         ]
     }
 </script>
+
+<script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: 'cce4a5fcd7d0f3b4222d',
+        clientSecret: '25f891815e6b9cd6e9774d2e27b6947debe4c70b',
+        repo: 'primary-java',
+        owner: 'czz1233',
+        admin: ['czz1233'],
+        // facebook-like distraction free mode
+        distractionFreeMode: false
+    })
+</script>
+
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-c.min.js"></script>
 <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
@@ -76,5 +93,7 @@
 <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
+
+
 </body>
 </html>
