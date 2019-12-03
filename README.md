@@ -16,5 +16,18 @@
 
 此项目为知乎 `12个模块 150 道 java 必考面试题`的升级版，添加目录，内容。配合项目食用，效果更佳！！
 
+## java基础
+## 容器
+## 多线程
+## 常用设计模式
+## Spring/SpringMVC
+## SpringBoot/SpringCloud
+## Mybatis
+## Kafka
+## Zookeeper
+## MySql
+## Redis
+## JVM
+
 
 
