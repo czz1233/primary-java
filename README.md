@@ -12,8 +12,7 @@
 [![issues](https://badgen.net/github/open-issues/czz1233/primary-java)](https://github.com/czz1233/primary-java/issues)
 [![PRs Welcome](https://badgen.net/badge/PRs/welcome/green)](http://makeapullrequest.com)
 ---
-总结内容大部分来自于网络和实际笔试和面试经验，内容涵盖[java基础](#java基础)、[容器](#容器)、[多线程](#多线程)、[常用设计模式](#常用设计模式)、[Spring/SpringMVC](#Spring/SpringMVC)、[SpringBoot/SpringCloud](#SpringBoot/SpringCloud)、[Mybatis](#Mybatis)、[Kafka](#Kafka)、[Zookeeper](#Zookeeper)
-、[MySql](#MySql)、[Redis](#Redis)[JVM](#JVM)
+总结内容大部分来自于网络和实际笔试和面试经验，内容涵盖[java基础](#java基础)、[容器](#容器)、[多线程](#多线程)、[常用设计模式](#常用设计模式)、[Spring/SpringMVC](#Spring/SpringMVC)、[SpringBoot/SpringCloud](#SpringBoot/SpringCloud)、[Mybatis](#Mybatis)、[Kafka](#Kafka)、[Zookeeper](#Zookeeper)、[MySql](#MySql)、[Redis](#Redis)、[JVM](#JVM)
 ---
 此项目为知乎 `12个模块 150 道 java 必考面试题`的升级版，添加目录，内容。配合项目食用，效果更佳！！
 ---
