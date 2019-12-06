@@ -1,5 +1,5 @@
-##Java基础知识
-###1.JDK 和 JRE 有什么区别？
+## Java基础知识
+### 1.JDK 和 JRE 有什么区别？
 ![es-index-type-mapping-document-field](./images/java1.jpg)
 ###2.== 和 equals 的区别是什么？
 “==”比较的是两个引用在内存中的地址是否相同，也就是说在内存中的地址是否一样。
