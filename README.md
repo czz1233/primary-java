@@ -17,6 +17,7 @@
 此项目为知乎 `12个模块 150 道 java 必考面试题`的升级版，添加目录，内容。配合项目食用，效果更佳！！
 ***
 ## [java基础](/docs/primary-java-page/primary.md)
+- [1.JDK 和 JRE 有什么区别？](/docs/primary-java-page/primary.md?id=_1jdk-和-jre-有什么区别？)
 ## 容器
 ## 多线程
 ## 常用设计模式
