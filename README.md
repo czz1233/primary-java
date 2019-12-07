@@ -21,14 +21,9 @@
 ## [容器](/docs/primary-java-page/container.md)
 ## [多线程](/docs/primary-java-page/Multi-threaded.md)
 
-#include "markdown-file.md"
-include "markdown-file.md"
-include:md README.md
 
-<code>## copy README.md to ./
-copy_readme:
-  cp README.md ./docs/primary-java-page/README.md
-</code>
+{% include "https://github.com/czz1233/primary-java/blob/master/docs/primary-java-page/README.md" %}
+
 ## 常用设计模式
 ## Spring/SpringMVC
 ## SpringBoot/SpringCloud
