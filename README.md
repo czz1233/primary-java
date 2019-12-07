@@ -21,9 +21,6 @@
 ## [容器](/docs/primary-java-page/container.md)
 ## [多线程](/docs/primary-java-page/Multi-threaded.md)
 
-
-{% include "https://github.com/czz1233/primary-java/blob/master/docs/primary-java-page/README.md" %}
-
 ## 常用设计模式
 ## Spring/SpringMVC
 ## SpringBoot/SpringCloud
