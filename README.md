@@ -20,7 +20,6 @@
 [1. JDK 和 JRE 有什么区别？](/docs/primary-java-page/primary.md?id=_1jdk-和-jre-有什么区别？)
 ## [容器](/docs/primary-java-page/container.md)
 ## [多线程](/docs/primary-java-page/Multi-threaded.md)
-
 ## 常用设计模式
 ## Spring/SpringMVC
 ## SpringBoot/SpringCloud
