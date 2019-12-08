@@ -17,6 +17,7 @@
 ### 30. 创建线程有哪几种方式？
 创建的四种方法：
 - 通过继承Thread类创建接口
+
 ```java
 public class MyThread extends Thread{//继承Thread类
 
@@ -37,7 +38,9 @@ public class Main {
 
 }
 ```
+
 - 实现Runnable接口创建线程
+
 ```java
 public class MyThread2 implements Runnable {//实现Runnable接口
 
@@ -69,6 +72,7 @@ public class Main {
 ```
 - 使用Callable和Future创建
 和Runnable接口不一样，Callable接口提供了一个call（）方法作为线程执行体，call()方法比run()方法功能要强大。
+
 ```java
 public class Main {
 
@@ -106,15 +110,16 @@ public class Main {
 
 }
 ```
+
 - 使用线程池例如用Executor框架
 1.5后引入的Executor框架的最大优点是把任务的提交和执行解耦。要执行任务的人只需把Task描述清楚，然后提交即可。这个Task是怎么被执行的，被谁执行的，什么时候执行的，提交的人就不用关心了。具体点讲，提交一个Callable对象给ExecutorService（如最常用的线程池ThreadPoolExecutor），将得到一个Future对象，调用Future对象的get方法等待执行结果就好了。Executor框架的内部使用了线程池机制，它在java.util.cocurrent 包下，通过该框架来控制线程的启动、执行和关闭，可以简化并发编程的操作。因此，在Java 5之后，通过Executor来启动线程比使用Thread的start方法更好，除了更易管理，效率更好（用线程池实现，节约开销）外，还有关键的一点：有助于避免this逃逸问题——如果我们在构造器中启动一个线程，因为另一个任务可能会在构造器结束之前开始执行，此时可能会访问到初始化了一半的对象用Executor在构造器中。
-Executor框架包括：线程池，Executor，Executors，ExecutorService，CompletionService，Future，Callable等。
+- Executor框架包括：线程池，Executor，Executors，ExecutorService，CompletionService，Future，Callable等。
 
-Executor接口中之定义了一个方法execute（Runnable command），该方法接收一个Runable实例，它用来执行一个任务，任务即一个实现了Runnable接口的类。ExecutorService接口继承自Executor接口，它提供了更丰富的实现多线程的方法，比如，ExecutorService提供了关闭自己的方法，以及可为跟踪一个或多个异步任务执行状况而生成 Future 的方法。 可以调用ExecutorService的shutdown（）方法来平滑地关闭 ExecutorService，调用该方法后，将导致ExecutorService停止接受任何新的任务且等待已经提交的任务执行完成(已经提交的任务会分两类：一类是已经在执行的，另一类是还没有开始执行的)，当所有已经提交的任务执行完毕后将会关闭ExecutorService。因此我们一般用该接口来实现和管理多线程。
+- Executor接口中之定义了一个方法execute（Runnable command），该方法接收一个Runable实例，它用来执行一个任务，任务即一个实现了Runnable接口的类。ExecutorService接口继承自Executor接口，它提供了更丰富的实现多线程的方法，比如，ExecutorService提供了关闭自己的方法，以及可为跟踪一个或多个异步任务执行状况而生成 Future 的方法。 可以调用ExecutorService的shutdown（）方法来平滑地关闭 ExecutorService，调用该方法后，将导致ExecutorService停止接受任何新的任务且等待已经提交的任务执行完成(已经提交的任务会分两类：一类是已经在执行的，另一类是还没有开始执行的)，当所有已经提交的任务执行完毕后将会关闭ExecutorService。因此我们一般用该接口来实现和管理多线程。
 
-ExecutorService的生命周期包括三种状态：运行、关闭、终止。创建后便进入运行状态，当调用了shutdown（）方法时，便进入关闭状态，此时意味着ExecutorService不再接受新的任务，但它还在执行已经提交了的任务，当素有已经提交了的任务执行完后，便到达终止状态。如果不调用shutdown（）方法，ExecutorService会一直处在运行状态，不断接收新的任务，执行新的任务，服务器端一般不需要关闭它，保持一直运行即可。
+- ExecutorService的生命周期包括三种状态：运行、关闭、终止。创建后便进入运行状态，当调用了shutdown（）方法时，便进入关闭状态，此时意味着ExecutorService不再接受新的任务，但它还在执行已经提交了的任务，当素有已经提交了的任务执行完后，便到达终止状态。如果不调用shutdown（）方法，ExecutorService会一直处在运行状态，不断接收新的任务，执行新的任务，服务器端一般不需要关闭它，保持一直运行即可。
 
-Executors提供了一系列工厂方法用于创先线程池，返回的线程池都实现了ExecutorService接口。
+> Executors提供了一系列工厂方法用于创先线程池，返回的线程池都实现了ExecutorService接口。
 ### 31. 说一下 runnable 和 callable 有什么区别？
 Runnable和Callable的区别是：
 
@@ -217,7 +222,9 @@ task2 cancel: true
 Interrupted task2.
 java.util.concurrent.ExecutionException: java.lang.Exception: Bad flag value!
 ```
+
 FutureTask则是一个RunnableFuture，即实现了Runnbale又实现了Futrue这两个接口，另外它还可以包装Runnable和Callable，所以一般来讲是一个符合体了，它可以通过Thread包装来直接执行，也可以提交给ExecuteService来执行，并且还可以通过v get()返回执行结果，在线程体没有执行完成的时候，主线程一直阻塞等待，执行完则直接返回结果。
+
 ```java
 public class FutureTaskTest {
 
