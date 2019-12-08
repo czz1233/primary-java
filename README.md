@@ -16,7 +16,8 @@
 
 此项目为知乎 `12个模块 150 道 java 必考面试题`的升级版，更新目录和内容。配合项目食用，效果更佳！！
 ***
-## [java基础](/docs/primary-java-page/primary.md)
+### java基础
+### [java基础](/docs/primary-java-page/primary.md)
 [1. JDK 和 JRE 有什么区别？](/docs/primary-java-page/primary.md?id=_1jdk-和-jre-有什么区别？)
 
 [2. == 和 equals 的区别是什么？](/docs/primary-java-page/primary.md?id=_2-和-equals-的区别是什么？)
@@ -48,7 +49,8 @@
 [16. BIO、NIO、AIO 有什么区别？](/docs/primary-java-page/primary.md?id=_16-bio、nio、aio-有什么区别？)
 
 [17. Files的常用方法都有哪些？](/docs/primary-java-page/primary.md?id=_17-files的常用方法都有哪些？)
-## [容器](/docs/primary-java-page/container.md)
+## 容器
+### [容器](/docs/primary-java-page/container.md)
 
 [18. java 容器都有哪些？](/docs/primary-java-page/container.md?id=_18-java-容器都有哪些？)
 
@@ -67,8 +69,8 @@
 [25. Iterator 和 ListIterator 有什么区别？](/docs/primary-java-page/container.md?id=_25-iterator-和-listiterator-有什么区别？)
 
 [26. 怎么确保一个集合不能被修改？](/docs/primary-java-page/container.md?id=_26-怎么确保一个集合不能被修改？)
-
-## [多线程](/docs/primary-java-page/Multi-threaded.md)
+## 多线程
+### [多线程](/docs/primary-java-page/Multi-threaded.md)
 
 [27. 并行和并发有什么区别？](/docs/primary-java-page/Multi-threaded.md?id=_27-并行和并发有什么区别？)
 
