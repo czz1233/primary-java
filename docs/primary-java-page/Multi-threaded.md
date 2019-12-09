@@ -545,6 +545,251 @@ Sycronized是重量级锁（也是悲观锁）
 ThreadLocal 是线程本地存储，在每个线程中都创建了一个 ThreadLocalMap 对象，每个线程可以访问自己内部 ThreadLocalMap 对象内的 value。
        经典的使用场景是为每个线程分配一个 JDBC 连接 Connection。这样就可以保证每个线程的都在各自的 Connection 上进行数据库的操作，不会出现 A 线程关了 B线程正在使用的 Connection； 还有 Session 管理 等问题。 
 ### 40. 说一下 synchronized 底层实现原理？
+Synchronized的作用主要是三个
+- 确保线程互斥的访问同步代码
+- 保证共享变量的修改能及时可见
+- 有效解决排序问题
+
+从语法上来看：
+- 可以修饰普通方法
+- 修饰静态方法
+- 修饰代码块
+代码解释：
+```java
+
+public class SynchronizedTest {
+    public void method1(){
+        System.out.println("Method 1 start");
+        try {
+            System.out.println("Method 1 execute");
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 1 end");
+    }
+
+    public void method2(){
+        System.out.println("Method 2 start");
+        try {
+            System.out.println("Method 2 execute");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 2 end");
+    }
+
+    public static void main(String[] args) {
+        final SynchronizedTest test = new SynchronizedTest();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method1();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method2();
+            }
+        }).start();
+    }
+}
+
+//执行的结果
+
+Method 1 start
+Method 1 execute
+Method 2 start
+Method 2 execute
+Method 2 end
+Method 1 end
+```
+由此可见在不使用synchronized时修饰线程启动时随机的.
+
+当使用synchroized修饰时：
+```java
+
+public class SynchronizedTest {
+    public synchronized void method1(){
+        System.out.println("Method 1 start");
+        try {
+            System.out.println("Method 1 execute");
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 1 end");
+    }
+
+    public synchronized void method2(){
+        System.out.println("Method 2 start");
+        try {
+            System.out.println("Method 2 execute");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 2 end");
+    }
+
+    public static void main(String[] args) {
+        final SynchronizedTest test = new SynchronizedTest();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method1();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method2();
+            }
+        }).start();
+    }
+}
+
+//结果
+Method 1 start
+Method 1 execute
+Method 1 end
+Method 2 start
+Method 2 execute
+Method 2 end
+```
+明显可知：线程是顺序执行的。
+
+静态方法同步：
+```java
+ 
+ public class SynchronizedTest {
+     public static synchronized void method1(){
+         System.out.println("Method 1 start");
+         try {
+             System.out.println("Method 1 execute");
+             Thread.sleep(3000);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+         System.out.println("Method 1 end");
+     }
+ 
+     public static synchronized void method2(){
+         System.out.println("Method 2 start");
+         try {
+             System.out.println("Method 2 execute");
+             Thread.sleep(1000);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+         System.out.println("Method 2 end");
+     }
+ 
+     public static void main(String[] args) {
+         final SynchronizedTest test = new SynchronizedTest();
+         final SynchronizedTest test2 = new SynchronizedTest();
+ 
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 test.method1();
+             }
+         }).start();
+ 
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 test2.method2();
+             }
+         }).start();
+     }
+ }
+```
+静态方法上的的同步实质上是对类的同步，因此执行的时候还是顺序执行。即使test和test2属于不同的对象但是，调用的还是SynchronizedTest类
+
+代码块同步：
+```java
+
+public class SynchronizedTest {
+    public void method1(){
+        System.out.println("Method 1 start");
+        try {
+            synchronized (this) {
+                System.out.println("Method 1 execute");
+                Thread.sleep(3000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 1 end");
+    }
+
+    public void method2(){
+        System.out.println("Method 2 start");
+        try {
+            synchronized (this) {
+                System.out.println("Method 2 execute");
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Method 2 end");
+    }
+
+    public static void main(String[] args) {
+        final SynchronizedTest test = new SynchronizedTest();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method1();
+            }
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                test.method2();
+            }
+        }).start();
+    }
+}
+//结果    
+Method 1 start
+Method 1 execute
+Method 2 start
+Method 1 end
+Method 2 execute
+Method 2 end
+```
+虽然线程1和线程2都进入了对应的方法开始执行，但是线程2在进入同步块之前，需要等待线程1中同步块执行完成。 
+
+反编译Synchorized代码
+[](https://images2015.cnblogs.com/blog/820406/201604/820406-20160414215316020-1963237484.png)
+monitorenter:
+
+每个对象有一个监视器锁（monitor）。当monitor被占用时就会处于锁定状态，线程执行monitorenter指令时尝试获取monitor的所有权，过程如下：
+
+1、如果monitor的进入数为0，则该线程进入monitor，然后将进入数设置为1，该线程即为monitor的所有者。
+
+2、如果线程已经占有该monitor，只是重新进入，则进入monitor的进入数加1.
+
+3.如果其他线程已经占用了monitor，则该线程进入阻塞状态，直到monitor的进入数为0，再重新尝试获取monitor的所有权。 
+
+monitorexit：
+
+执行monitorexit的线程必须是objectref所对应的monitor的所有者。
+
+指令执行时，monitor的进入数减1，如果减1后进入数为0，那线程退出monitor，不再是这个monitor的所有者。其他被这个monitor阻塞的线程可以尝试去获取这个 monitor 的所有权。 
+    
+通过这两段描述，我们应该能很清楚的看出Synchronized的实现原理，Synchronized的语义底层是通过一个monitor的对象来完成，其实wait/notify等方法也依赖于monitor对象，这就是为什么只有在同步的块或者方法中才能调用wait/notify等方法，否则会抛出java.lang.IllegalMonitorStateException的异常的原因。  
 ### 41. synchronized 和 volatile 的区别是什么？
 ### 42. synchronized 和 Lock 有什么区别？
 ### 43. synchronized 和 ReentrantLock 区别是什么？
