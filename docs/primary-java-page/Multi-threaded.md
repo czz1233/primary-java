@@ -852,7 +852,7 @@ public class LockTest {
 }
 
 ```
-[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170148316-1396417860.png)
+![](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170148316-1396417860.png)
 
 ```java
 
@@ -903,7 +903,7 @@ public class LockTest {
 }
 
 ```
-[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170315409-1275190033.png)
+![](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170315409-1275190033.png)
 
 ```java
 public class LockTest {
@@ -955,10 +955,10 @@ public class LockTest {
 }
 ```
 因为此时线程1休眠了4秒，线程2等待了3秒还没有获取到就放弃获取锁了，执行结束
-[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171216113-1269302837.png)
+![](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171216113-1269302837.png)
 
 将方法中的 Thread.sleep(4000)改为Thread.sleep(2000)执行结果如下：
-[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171220503-1459398049.png)
+![](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171220503-1459398049.png)
 
 因为此时线程1休眠了2秒，线程2等待了3秒的期间线程1释放了锁，此时线程2获取到锁，线程2就可以执行了
 ### 43. synchronized 和 ReentrantLock 区别是什么？
