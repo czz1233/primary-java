@@ -791,7 +791,176 @@ monitorexit：
     
 通过这两段描述，我们应该能很清楚的看出Synchronized的实现原理，Synchronized的语义底层是通过一个monitor的对象来完成，其实wait/notify等方法也依赖于monitor对象，这就是为什么只有在同步的块或者方法中才能调用wait/notify等方法，否则会抛出java.lang.IllegalMonitorStateException的异常的原因。  
 ### 41. synchronized 和 volatile 的区别是什么？
+- synchronized表示只有一个对象可以获取作用对象的锁，执行代码，阻塞其他线程。
+- volatile表示变量在cpu的寄存器的对象是不确定的，必须从主存中获取。保证多线程下变量的可见性，禁止指令重排序。
+区别：
+
+- synchronized表示可以作用于方法、变量和类。volatile只可以作用于变量。
+- synchronized可以保证线程的有序性/原子性/可见性。volatile只保证了可见性和有序性。
+- synchronized是线程阻塞的。volatile线程不阻塞。 
 ### 42. synchronized 和 Lock 有什么区别？
+区别：
+- synchronized是java中内置的关键字。lock是java的一个类。
+- synchronized无法判断是否获取锁的状态。lock可以判断是否可以获取锁。
+- synchronized会自动释放锁（a线程执行完会释放锁，b线程发生异常会释放锁）。lock需要在finally中手工释放锁（unlock（）方法释放锁），否则容易造成线程死锁。
+- 使用synchronized修饰的代码，当线程1发生阻塞，线程2会一直等待。而lock不用等待，当线程2尝试获取锁，当获取不到就可以直接停止。
+- synchronized的锁可以重入、不可中断和非公平。lock锁是可重入、可中断和公平。  
+- lock适用于大量同步代码同步。synchroized适用于少量代码同步。
+
+demo:
+```java
+public class LockTest {
+    private Lock lock = new ReentrantLock();
+    /*
+     * 使用完毕释放后其他线程才能获取锁
+     */
+    public void lockTest(Thread thread) {
+        lock.lock();//获取锁
+        try {
+            System.out.println("线程"+thread.getName() + "获取当前锁"); //打印当前锁的名称
+            Thread.sleep(2000);//为看出执行效果，是线程此处休眠2秒
+        } catch (Exception e) {
+            System.out.println("线程"+thread.getName() + "发生了异常释放锁");
+        }finally {
+            System.out.println("线程"+thread.getName() + "执行完毕释放锁");
+            lock.unlock(); //释放锁
+        }
+    }
+     
+    public static void main(String[] args) {
+        LockTest lockTest = new LockTest();
+        //声明一个线程 “线程一”
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lockTest.lockTest(Thread.currentThread());
+            }
+        }, "thread1");
+        //声明一个线程 “线程二”
+        Thread thread2 = new Thread(new Runnable() {
+ 
+            @Override
+            public void run() {
+                lockTest.lockTest(Thread.currentThread());
+            }
+        }, "thread2");
+        // 启动2个线程
+        thread2.start();
+        thread1.start();
+ 
+    }
+}
+
+```
+[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170148316-1396417860.png)
+
+```java
+
+public class LockTest {
+    private Lock lock = new ReentrantLock();
+    
+    /*
+     * 尝试获取锁 tryLock() 它表示用来尝试获取锁，如果获取成功，则返回true，如果获取失败（即锁已被其他线程获取），则返回false
+     */
+    public void tryLockTest(Thread thread) {
+        if(lock.tryLock()) { //尝试获取锁
+            try {
+                System.out.println("线程"+thread.getName() + "获取当前锁"); //打印当前锁的名称
+                Thread.sleep(2000);//为看出执行效果，是线程此处休眠2秒
+            } catch (Exception e) {
+                System.out.println("线程"+thread.getName() + "发生了异常释放锁");
+            }finally {
+                System.out.println("线程"+thread.getName() + "执行完毕释放锁");
+                lock.unlock(); //释放锁
+            }
+        }else{
+            System.out.println("我是线程"+Thread.currentThread().getName()+"当前锁被别人占用，我无法获取");
+        }
+    }
+    public static void main(String[] args) {
+        LockTest lockTest = new LockTest();
+        
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lockTest.tryLockTest(Thread.currentThread());
+            }
+        }, "thread1");
+        //声明一个线程 “线程二”
+        Thread thread2 = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                lockTest.tryLockTest(Thread.currentThread());
+            }
+        }, "thread2");
+        // 启动2个线程
+        thread2.start();
+        thread1.start();
+
+
+    }
+}
+
+```
+[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206170315409-1275190033.png)
+
+```java
+public class LockTest {
+    private Lock lock = new ReentrantLock();
+    public void tryLockParamTest(Thread thread) throws InterruptedException {
+        if(lock.tryLock(3000, TimeUnit.MILLISECONDS)) { //尝试获取锁 获取不到锁，就等3秒，如果3秒后还是获取不到就返回false  
+            try {
+                System.out.println("线程"+thread.getName() + "获取当前锁"); //打印当前锁的名称
+                Thread.sleep(4000);//为看出执行效果，是线程此处休眠2秒
+            } catch (Exception e) {
+                System.out.println("线程"+thread.getName() + "发生了异常释放锁");
+            }finally {
+                System.out.println("线程"+thread.getName() + "执行完毕释放锁");
+                lock.unlock(); //释放锁
+            }
+        }else{
+            System.out.println("我是线程"+Thread.currentThread().getName()+"当前锁被别人占用,等待3s后仍无法获取,放弃");
+        }
+    }
+    public static void main(String[] args) {
+        LockTest lockTest = new LockTest();
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lockTest.tryLockParamTest(Thread.currentThread());
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }, "thread1");
+        //声明一个线程 “线程二”
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    lockTest.tryLockParamTest(Thread.currentThread());
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }, "thread2");
+        // 启动2个线程
+        thread2.start();
+        thread1.start();
+    }
+}
+```
+因为此时线程1休眠了4秒，线程2等待了3秒还没有获取到就放弃获取锁了，执行结束
+[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171216113-1269302837.png)
+
+将方法中的 Thread.sleep(4000)改为Thread.sleep(2000)执行结果如下：
+[](https://images2017.cnblogs.com/blog/1294479/201712/1294479-20171206171220503-1459398049.png)
+
+因为此时线程1休眠了2秒，线程2等待了3秒的期间线程1释放了锁，此时线程2获取到锁，线程2就可以执行了
 ### 43. synchronized 和 ReentrantLock 区别是什么？
 ### 44. 说一下 atomic 的原理
 
