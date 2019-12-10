@@ -963,6 +963,28 @@ public class LockTest {
 
 因为此时线程1休眠了2秒，线程2等待了3秒的期间线程1释放了锁，此时线程2获取到锁，线程2就可以执行了
 ### 43. synchronized 和 ReentrantLock 区别是什么？
+ReentrantLock称为重入锁 ，位于juc的locks包下和CountDownLath、FutureTask一样基于AQS(AbstractQueuedSynchronizer)实现。能比synchronized实现更细粒度的锁。比如控制公平性，要注意调用了lock后要释放（unlock()）锁，他的性能未必比synchronized高，可以重入。
+
+- ReentranLock公平性的设置：
+
+        ReentrantLock fairLock=new ReentrantLock(true)
+        当参数为true时，倾向于将锁赋予等待时间最久的线程。
+        公平锁：获取锁的顺序先后调用lock方法（慎用）
+        非公平锁：抢占的顺序不一定，看运气
+        synchronized是非公平锁
+- ReentrantLock可以将锁对象化
+        
+        判断是否有线程，或某个特定的线程，在排队获取锁
+        带超时获取锁尝试
+        感知有没有成功获取锁
+- ReentrantLock可以将/notify/notifyAll/wait对象化
+
+```html
+synchronized是关键字，ReentrantLock是类
+ReentrantLock可以获取岁哦的锁的时间，避免死锁
+ReentrantLock可以获取锁的各种信息
+ReentrantLock可以灵活实现多路通知
+```
 ### 44. 说一下 atomic 的原理
 
 ### 以上后续更新。。。。
