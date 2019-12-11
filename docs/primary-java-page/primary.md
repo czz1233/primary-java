@@ -27,6 +27,7 @@ Java中很多类（String类 Date类 File类）等都对equals方法进行了重
 
 第11行代码 str3.equals(str4) 返回true
 因为String类重写了equals方法，比较的是内存空间存放的数据是否相同。这里存放的都是字符串“abc” 故返回true。
+> 注意：比较字符串时要使用equals,不要使用==或！=
 ### 3. 两个对象的 hashCode()相同，则 equals()也一定为 true，对吗？
 两个对象equals相等，则它们的hashcode必须相等，反之则不一定。
 两个对象==相等，则其hashcode一定相等，反之不一定成立。
