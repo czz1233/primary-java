@@ -537,7 +537,131 @@ public class AdapterDemo {
     }
 }
 ```
-###桥接（Bridge）模式
+###桥接/桥梁（Bridge）模式
+在现实生活中，某些具有两个或多个维度的变化。eg按照图像颜色、大小分类。如何设计类似于photoShop这样的软件
+能画不同颜色/类型的图像。如果使用继承的方式有mxn种，不但子类多，而且不容易扩展。为了解决这样的问题使用桥接模式
+####特点
+优点：
+- 抽象与实现分离，便于扩展
+- 其实现对客户透明
+
+缺点：
+- 由于聚合关系存在抽象层，要求开发者针对抽象层进行设计编写，者增加了系统理解与设计的难度
+
+####结构与实现
+结构：取消二者继承关系，改用组合关系
+- 抽象化（Abstraction）角色：定义抽象类，并且包含一个对实现化对象的引用。
+- 扩展抽象化（Refined Abstraction）角色：是抽象化角色的子类，实现父类中的业务方法，并且通过组合关系调用实现化角色中的业务方法。
+- 实现化（Implementor）角色：定义实现化接口，提供扩展抽象化角色的调用。
+- 具体实现化（Concre Implementor）角色：具体实现-实现化角色
+
+实现：
+- 抽象化（Abstraction）角色
+
+```java
+
+package com.chen.designPattern.Bridge;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public abstract class FileAbstract {
+    public FileService fileService;
+
+    public FileAbstract(FileService fileService) {
+        this.fileService = fileService;
+    }
+    public abstract void Operation();
+}
+
+
+```
+
+- 扩展抽象化（Refined Abstraction）角色
+
+```java
+package com.chen.designPattern.Bridge;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public  class RefinedFileAbstract extends FileAbstract {
+
+    protected RefinedFileAbstract(FileService fileService) {
+        super(fileService);
+    }
+
+    @Override
+    public void Operation() {
+        System.out.println("扩展抽象化(Refined Abstraction)角色被访问" );
+        fileService.add();
+    }
+}
+
+
+
+```
+
+- 实现化（Implementor）角色
+
+```java
+package com.chen.designPattern.Bridge;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public interface FileService {
+    public void add();
+}
+
+```
+
+- 具体实现化（Concre Implementor）角色
+ ```java
+package com.chen.designPattern.Bridge;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class FileServiceImpl  implements  FileService{
+    @Override
+    public void add() {
+        System.out.println("文件添加");
+    }
+}
+
+```  
+
+- 调用
+
+```java
+
+package com.chen.designPattern.Bridge;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class BridgeDemo {
+    public static void main(String[] args) {
+        FileService fileService=new FileServiceImpl();
+        FileAbstract fileAbstract=new RefinedFileAbstract(fileService);
+        fileAbstract.Operation();
+    }
+}
+
+
+```  
+
+桥接模式通常适用于以下场景:
+
+- 当一个类存在两个独立变化的维度，且这两个维度都需要进行扩展时。
+- 当一个系统不希望使用继承或因为多层次继承导致系统类的个数急剧增加时。
+- 当一个系统需要在构件的抽象化角色和具体化角色之间增加更多的灵活性时。
     
 ###装饰者（Decorator）模式
 ###外观（Facade）模式
