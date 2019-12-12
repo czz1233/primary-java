@@ -456,8 +456,89 @@ public class CockAdapter implements Duck{
 ####使用场景
 - 以前开发的功能存在满足新系统功能的类，但是接口与新的系统的接口不一致
 - 开发使用第三方使用的组件，但是接口的定义和自己要求的接口定义不同
+>适配器可以双向适配
 
+双向适配：
+
+- 适配器文件
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ * 双向适配器
+ */
+
+public class TwoWayAdapter implements Cock,Duck {
+
+    private Cock cock;
+    private Duck duck;
+
+    public TwoWayAdapter(Cock cock) {
+        this.cock = cock;
+    }
+
+    public TwoWayAdapter(Duck duck) {
+        this.duck = duck;
+    }
+
+
+    @Override
+    public void goggble() {
+        duck.quack();
+    }
+
+    @Override
+    public void fly() {
+        cock.fly();
+        duck.fly();
+    }
+
+    @Override
+    public void quack() {
+        cock.goggble();
+    }
+}
+
+```
+
+- 调用demo
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class AdapterDemo {
+    public static void main(String[] args) {
+       /* Cock wildCock=new WildCock();
+        Duck duck=new CockAdapter(wildCock);
+        duck.fly();
+        duck.quack();
+        //类适配器模式测试
+        Duck duck=new ClassCockAdapter();
+        duck.quack();
+
+*/
+
+        //双向适配器
+
+        System.out.println("把鸭子变为鸡");
+        Cock cock=new WildCock();
+        Duck duck=new TwoWayAdapter(cock);
+        duck.quack();
+        System.out.println("把Duck的鸡变为鸡");
+        Cock cock1=new TwoWayAdapter(duck);
+        cock1.goggble();
+    }
+}
+```
 ###桥接（Bridge）模式
+    
 ###装饰者（Decorator）模式
 ###外观（Facade）模式
 ###享元（Flyweight）模式
