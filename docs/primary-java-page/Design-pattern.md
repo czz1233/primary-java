@@ -302,6 +302,161 @@ public class Customer {
 >真实主题于代理主题一一对应，只增强真实主题也需要增强代理。
 >设计代理模式以前真实主题必须事先存在，但是采用动态代理可以解决。
 ###适配（Adapter）模式
+适配器模式是将现有类的接口转化为客户向要接口，使原本接口不兼容的类转化为可以协同工作的类。
+####特点
+优点：
+- 客户端可以通过适配器透明的调用目标接口。
+- 复用了现有的类，不需要重新修改原有的代码而重用现有的适配者类。
+- 将目标类与适配者类解耦，解决了目标类和适配者类接口不一致的问题。
+缺点：
+- 对适配器来说更换适配器的实现过程比较复杂。
+####结构与实现
+结构：
+- 目标（Target）类：当前业务所需要的接口，它可以是抽象类或接口
+- 适配者（Adaptee）类：它是被访问的和适配的现存的接口
+- 适配器(Adapter)类：它是一个转化器，通过继承或引用适配者的对象，把接口转化为目标接口，让客户按照目标接口进行访问。
+
+实现：
+
+（1）类适配器
+
+- 适配器
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class ClassCockAdapter extends WildCock implements Duck {
+
+    @Override
+    public void quack() {
+        goggble();
+    }
+
+    @Override
+    public void fly() {
+        super.fly();
+    }
+}
+
+```
+
+- 调用
+```java
+
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class AdapterDemo {
+    public static void main(String[] args) {
+
+        Duck duck=new ClassCockAdapter();
+        duck.quack();
+    }
+}
+
+
+```
+（2）对象适配器
+- 目标类：
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public interface Duck {
+    //鸭呱呱
+    public void quack();
+    //鸭飞
+    public void fly();
+}
+
+
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public interface Cock {
+    //鸡叫
+    public void goggble();
+    //鸡飞
+    public void fly();
+}
+
+```
+
+- 适配者接口实现
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class WildCock implements Cock {
+    @Override
+    public void goggble() {
+        System.out.println("鸡咕咕");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println("鸡飞");
+    }
+}
+
+```
+
+- 适配器
+
+```java
+package com.chen.designPattern.adapter;
+
+/**
+ * @Autre beyond
+ * @Data 2019/12/12
+ */
+public class CockAdapter implements Duck{
+    //鸡的适配器要实现要适配的对象
+
+    private Cock cock;
+    //构造方法要鸡的实例，此类就是要把鸡适配成鸭子
+
+
+    public CockAdapter(Cock cock) {
+        this.cock = cock;
+    }
+
+
+    @Override
+    public void quack() {
+        cock.goggble();
+    }
+
+    @Override
+    public void fly() {
+        cock.fly();
+    }
+}
+
+```
+>对象适配器就是把鸭子伪装成鸡
+####使用场景
+- 以前开发的功能存在满足新系统功能的类，但是接口与新的系统的接口不一致
+- 开发使用第三方使用的组件，但是接口的定义和自己要求的接口定义不同
+
 ###桥接（Bridge）模式
 ###装饰者（Decorator）模式
 ###外观（Facade）模式
