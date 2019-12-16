@@ -573,6 +573,7 @@ public  class RefinedFileAbstract extends FileAbstract {
 - 实现化（Implementor）角色
 
 ```java
+
 package com.chen.designPattern.Bridge;
 /**
  * @Autre beyond
