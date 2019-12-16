@@ -587,7 +587,7 @@ public interface FileService {
 
 - 具体实现化（Concre Implementor）角色
 
- ```java
+```java
  
 package com.chen.designPattern.Bridge;
 /**
