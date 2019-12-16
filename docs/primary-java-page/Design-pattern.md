@@ -1,3 +1,16 @@
+## 创建型模式
+### 单例（Singleton）模式
+某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其拓展是有限多例模式。
+### 原型（Prototype）模式
+将一个对象作为原型，通过对其进行复制而克隆出多个和原型类似的新实例。 
+### 工厂方法（FactoryMethod）模式
+定义一个用于创建产品的接口，由子类决定生产什么产品。
+### 抽象工厂（AbstractFactory）模式
+提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。
+### 建造者（Builder）模式
+将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。
+
+
 ### 建造者模式（Builder模式）详解
 常见到的建造者模式都是xxxBulider，通常都是建造者模式的产物。建造者模式通常有很多变种，但是对于客户端经常使用的是：
 
@@ -121,7 +134,6 @@ public class LanZhouNoodleBuilder extends Builder {
 
 ```java
 package com.chen.designPattern.bulider;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -521,7 +533,6 @@ public class AdapterDemo {
 ```java
 
 package com.chen.designPattern.Bridge;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
