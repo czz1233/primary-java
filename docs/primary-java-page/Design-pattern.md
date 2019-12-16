@@ -6,7 +6,7 @@ Food food = new FoodBuilder().a().b().c().build();
 Food food = Food.builder().a().b().c().build();
 `
 
-####特点：
+#### 特点：
  
 优点：
 - 各个建造者相互独立，不干扰。有利于系统的构建
@@ -17,7 +17,7 @@ Food food = Food.builder().a().b().c().build();
 - 如果产品内部非常复杂，该模式会增加很多建造类
 > 建造者（Builder）和工厂模式的关注点不同，建造者关注的是零件组装的过程，而工厂模式关注的是零件创建的过程。
 
-####构建与实现
+#### 构建与实现
 
 建造者主要是四个元素组成：
 - 产品角色（product）：包含组成部件的复杂对象，由创建者创建具体各个零部件
@@ -27,9 +27,10 @@ Food food = Food.builder().a().b().c().build();
 实现：
 
 1. 创建一个product
-```java
-package com.chen.designPattern.bulider;
 
+```java
+
+package com.chen.designPattern.bulider;
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -38,11 +39,9 @@ public class NoodleProduct {
     private String boilFiveMin;
     private String boilTenMin;
     private String boilTwentyMin;
-
     public String getBoilFiveMin() {
         return boilFiveMin;
     }
-
     public void setBoilFiveMin(String boilFiveMin) {
         this.boilFiveMin = boilFiveMin;
     }
@@ -50,22 +49,17 @@ public class NoodleProduct {
     public String getBoilTenMin() {
         return boilTenMin;
     }
-
     public void setBoilTenMin(String boilTenMin) {
         this.boilTenMin = boilTenMin;
     }
-
     public String getBoilTwentyMin() {
         return boilTwentyMin;
     }
-
     public void setBoilTwentyMin(String boilTwentyMin) {
         this.boilTwentyMin = boilTwentyMin;
     }
-
     //显示各个组成信息
     public void show(){
-
     }
 }
 ```
@@ -74,14 +68,12 @@ public class NoodleProduct {
 
 ```java
 package com.chen.designPattern.bulider;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
  */
 public abstract class Builder {
     protected NoodleProduct product =new NoodleProduct();
-
     //大火煮5分钟
     public abstract void boilFiveMin();
     //大火煮10分钟
@@ -135,13 +127,10 @@ package com.chen.designPattern.bulider;
  * @Data 2019/12/12
  */
 public class Direct {
-
     private Builder builder;
-
     public Direct(Builder builder) {
         this.builder = builder;
     }
-
     //组装与配置方法
     public NoodleProduct construct(){
         //让他煮15分钟
@@ -174,7 +163,7 @@ public class Customer {
 
 ```
 
-####使用场景
+#### 使用场景
 `建造者（Builder）`模式适用于创建复杂对象，其产品各个部分经常面临着巨大变化，但是将他们组合在一起的算法是相对稳定的：
 - 创建者对象复杂，由多个部件组成，各个部件面临复杂变化，但是结构之间的构造顺序是相对稳定的。
 - 创建复杂对象的算法应该独立于该对象组成部分以及装配方式，就是产品的构建与最终的表示是相对独立的。
@@ -187,7 +176,7 @@ public class Customer {
 
 在软件设计中也经常使用代理模式。eg：要远程访问对象文件比较大(视频/图片)，下载需要使用很多时间，但是还要考虑安全因素，因此因该使用代理模式。
 
-####特点
+#### 特点
 优点：
 - 代理模式是客户端与目标端之间的一个中介起到保护目标对象的作用
 - 代理模式可以起到增强目标对象的作用
@@ -196,7 +185,7 @@ public class Customer {
 缺点：
 - 在客户端与目标端之间增加一个代理对象，会造成请求变慢
 - 增加了系统的复杂度
-####结构与实现
+#### 结构与实现
 模式的结构：
 - 抽象主题（Subject）类：通过接口或抽象类声明真实主题和代理对象的实现方法。
 - 真实主题（real Subject）类：实现抽象主题中具体的业务，是代理对象所要代理的对象，是要最终引用的对象。
@@ -294,7 +283,7 @@ public class Customer {
     }
 }
 ```
-####使用场景
+#### 使用场景
 - 远程代理：隐藏目标对象存在于不同的地址空间中，方便访问。
 - 虚拟代理：这种通信方式通常应用于创建的目标对象开销很大。
 - 安全代理：对不同的用户进行安全访问控制，权限的管理
@@ -303,14 +292,14 @@ public class Customer {
 >设计代理模式以前真实主题必须事先存在，但是采用动态代理可以解决。
 ###适配（Adapter）模式
 适配器模式是将现有类的接口转化为客户向要接口，使原本接口不兼容的类转化为可以协同工作的类。
-####特点
+#### 特点
 优点：
 - 客户端可以通过适配器透明的调用目标接口。
 - 复用了现有的类，不需要重新修改原有的代码而重用现有的适配者类。
 - 将目标类与适配者类解耦，解决了目标类和适配者类接口不一致的问题。
 缺点：
 - 对适配器来说更换适配器的实现过程比较复杂。
-####结构与实现
+#### 结构与实现
 结构：
 - 目标（Target）类：当前业务所需要的接口，它可以是抽象类或接口
 - 适配者（Adaptee）类：它是被访问的和适配的现存的接口
@@ -453,7 +442,7 @@ public class CockAdapter implements Duck{
 
 ```
 >对象适配器就是把鸭子伪装成鸡
-####使用场景
+#### 使用场景
 - 以前开发的功能存在满足新系统功能的类，但是接口与新的系统的接口不一致
 - 开发使用第三方使用的组件，但是接口的定义和自己要求的接口定义不同
 >适配器可以双向适配
@@ -540,7 +529,7 @@ public class AdapterDemo {
 ###桥接/桥梁（Bridge）模式
 在现实生活中，某些具有两个或多个维度的变化。eg按照图像颜色、大小分类。如何设计类似于photoShop这样的软件
 能画不同颜色/类型的图像。如果使用继承的方式有mxn种，不但子类多，而且不容易扩展。为了解决这样的问题使用桥接模式
-####特点
+#### 特点
 优点：
 - 抽象与实现分离，便于扩展
 - 其实现对客户透明
@@ -548,7 +537,7 @@ public class AdapterDemo {
 缺点：
 - 由于聚合关系存在抽象层，要求开发者针对抽象层进行设计编写，者增加了系统理解与设计的难度
 
-####结构与实现
+#### 结构与实现
 结构：取消二者继承关系，改用组合关系
 - 抽象化（Abstraction）角色：定义抽象类，并且包含一个对实现化对象的引用。
 - 扩展抽象化（Refined Abstraction）角色：是抽象化角色的子类，实现父类中的业务方法，并且通过组合关系调用实现化角色中的业务方法。
@@ -663,7 +652,7 @@ public class BridgeDemo {
 - 当一个系统不希望使用继承或因为多层次继承导致系统类的个数急剧增加时。
 - 当一个系统需要在构件的抽象化角色和具体化角色之间增加更多的灵活性时。
     
-###装饰者（Decorator）模式
-###外观（Facade）模式
-###享元（Flyweight）模式
-###组合（Composite）模式
+### 装饰者（Decorator）模式
+### 外观（Facade）模式
+### 享元（Flyweight）模式
+### 组合（Composite）模式
