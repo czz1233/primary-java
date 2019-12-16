@@ -585,7 +585,9 @@ public interface FileService {
 ```
 
 - 具体实现化（Concre Implementor）角色
+
  ```java
+ 
 package com.chen.designPattern.Bridge;
 /**
  * @Autre beyond
@@ -616,7 +618,6 @@ public class BridgeDemo {
         fileAbstract.Operation();
     }
 }
-
 
 ```  
 
