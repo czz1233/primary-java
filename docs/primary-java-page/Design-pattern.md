@@ -168,8 +168,8 @@ public class Customer {
 - 创建者对象复杂，由多个部件组成，各个部件面临复杂变化，但是结构之间的构造顺序是相对稳定的。
 - 创建复杂对象的算法应该独立于该对象组成部分以及装配方式，就是产品的构建与最终的表示是相对独立的。
 >建造者（Builder）模式在应用过程中可以根据需要改变，如果创建的产品种类只有一种，只需要一个具体建造者，这时可以省略掉抽象建造者，甚至可以省略掉指挥者角色。
-##构造模式
-###代理（Proxy）模式
+## 构造模式
+### 代理（Proxy）模式
 为某对象提供一种代理以控制对该对象的访问。即客户端通过代理间接的访问该对象，从而限制、修改、增强该对象的一些属性。
 
 通俗的来讲就是，在某些情况下客户不能直接访问另一个对象，这时需要中介来进行访问。这个中介就是代理对象。
@@ -290,7 +290,7 @@ public class Customer {
 - 延迟加载：提高系统性能，延迟对目标加载
 >真实主题于代理主题一一对应，只增强真实主题也需要增强代理。
 >设计代理模式以前真实主题必须事先存在，但是采用动态代理可以解决。
-###适配（Adapter）模式
+### 适配（Adapter）模式
 适配器模式是将现有类的接口转化为客户向要接口，使原本接口不兼容的类转化为可以协同工作的类。
 #### 特点
 优点：
@@ -313,18 +313,15 @@ public class Customer {
 
 ```java
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
  */
 public class ClassCockAdapter extends WildCock implements Duck {
-
     @Override
     public void quack() {
         goggble();
     }
-
     @Override
     public void fly() {
         super.fly();
@@ -337,14 +334,12 @@ public class ClassCockAdapter extends WildCock implements Duck {
 ```java
 
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
  */
 public class AdapterDemo {
     public static void main(String[] args) {
-
         Duck duck=new ClassCockAdapter();
         duck.quack();
     }
@@ -368,10 +363,7 @@ public interface Duck {
     //鸭飞
     public void fly();
 }
-
-
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -389,7 +381,6 @@ public interface Cock {
 
 ```java
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -399,7 +390,6 @@ public class WildCock implements Cock {
     public void goggble() {
         System.out.println("鸡咕咕");
     }
-
     @Override
     public void fly() {
         System.out.println("鸡飞");
@@ -412,28 +402,21 @@ public class WildCock implements Cock {
 
 ```java
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
  */
 public class CockAdapter implements Duck{
     //鸡的适配器要实现要适配的对象
-
     private Cock cock;
     //构造方法要鸡的实例，此类就是要把鸡适配成鸭子
-
-
     public CockAdapter(Cock cock) {
         this.cock = cock;
     }
-
-
     @Override
     public void quack() {
         cock.goggble();
     }
-
     @Override
     public void fly() {
         cock.fly();
@@ -453,7 +436,6 @@ public class CockAdapter implements Duck{
 
 ```java
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -461,30 +443,23 @@ package com.chen.designPattern.adapter;
  */
 
 public class TwoWayAdapter implements Cock,Duck {
-
     private Cock cock;
     private Duck duck;
-
     public TwoWayAdapter(Cock cock) {
         this.cock = cock;
     }
-
     public TwoWayAdapter(Duck duck) {
         this.duck = duck;
     }
-
-
     @Override
     public void goggble() {
         duck.quack();
     }
-
     @Override
     public void fly() {
         cock.fly();
         duck.fly();
     }
-
     @Override
     public void quack() {
         cock.goggble();
@@ -497,7 +472,6 @@ public class TwoWayAdapter implements Cock,Duck {
 
 ```java
 package com.chen.designPattern.adapter;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -511,11 +485,8 @@ public class AdapterDemo {
         //类适配器模式测试
         Duck duck=new ClassCockAdapter();
         duck.quack();
-
 */
-
         //双向适配器
-
         System.out.println("把鸭子变为鸡");
         Cock cock=new WildCock();
         Duck duck=new TwoWayAdapter(cock);
@@ -526,7 +497,7 @@ public class AdapterDemo {
     }
 }
 ```
-###桥接/桥梁（Bridge）模式
+### 桥接/桥梁（Bridge）模式
 在现实生活中，某些具有两个或多个维度的变化。eg按照图像颜色、大小分类。如何设计类似于photoShop这样的软件
 能画不同颜色/类型的图像。如果使用继承的方式有mxn种，不但子类多，而且不容易扩展。为了解决这样的问题使用桥接模式
 #### 特点
@@ -557,7 +528,6 @@ package com.chen.designPattern.Bridge;
  */
 public abstract class FileAbstract {
     public FileService fileService;
-
     public FileAbstract(FileService fileService) {
         this.fileService = fileService;
     }
@@ -571,17 +541,14 @@ public abstract class FileAbstract {
 
 ```java
 package com.chen.designPattern.Bridge;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
  */
 public  class RefinedFileAbstract extends FileAbstract {
-
     protected RefinedFileAbstract(FileService fileService) {
         super(fileService);
     }
-
     @Override
     public void Operation() {
         System.out.println("扩展抽象化(Refined Abstraction)角色被访问" );
@@ -597,7 +564,6 @@ public  class RefinedFileAbstract extends FileAbstract {
 
 ```java
 package com.chen.designPattern.Bridge;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -611,7 +577,6 @@ public interface FileService {
 - 具体实现化（Concre Implementor）角色
  ```java
 package com.chen.designPattern.Bridge;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
@@ -630,7 +595,6 @@ public class FileServiceImpl  implements  FileService{
 ```java
 
 package com.chen.designPattern.Bridge;
-
 /**
  * @Autre beyond
  * @Data 2019/12/12
