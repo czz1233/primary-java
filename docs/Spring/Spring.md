@@ -167,7 +167,7 @@ IOC的原理：
 FileSystemXmlApplicationContext 是使用xml的绝对路径。
 
 AnnotationConfigApplicationContext ：使用注解来配置。
-![](images/ClassPathXmlApplicationContext.png)
+![](/images/ClassPathXmlApplicationContext.png)
 - 测试
 
 # bean 的 scope 有几种类型？请详细列举。
