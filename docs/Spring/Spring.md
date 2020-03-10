@@ -168,11 +168,34 @@ FileSystemXmlApplicationContext 是使用xml的绝对路径。
 
 AnnotationConfigApplicationContext ：使用注解来配置。
 ![](/images/ClassPathXmlApplicationContext.png)
-- 测试
+- BeanFactory
+从上面的UML图中可以得出，bean的创建销毁都是由BeanFactory控制的。
+
+`ApplicationContext`是其中一个接口。
+
+。。。这个原理太深了可以单独拿出来写了 。。。简单分析一下吧。
+
+>就是spring会帮你创建一个对象并且控制对象的存活周期
 
 # bean 的 scope 有几种类型？请详细列举。
 
+|  作用域   | 定义  |
+|  ----  | ----  |
+| singleton  | 每个Spring容器中，一个bean只有一个对象的实例（默认） |
+| prototype  | 每次调用都创建一个实例|
+| request  | Http请求中，该作用于基于web的Spring上下文 |
+| session  | 在Http Session中 |
+| global session  | 在全局 Http Session中|
+
+
 # 说说 IoC 中的继承和 Java 继承的区别。
+
+1) Spring中的子Bean和父Bean可以是不同类型，但Java中的继承则可保证子类是一种特殊的父类。
+
+2) Spring中Bean的继承是实例之间的关系，因此主要表现为参数值的延续；而Java中的继承是类之间的关系，主要表现为方法、属性的延续。
+
+3) Spring中的子Bean不可作为父Bean使用，不具备多态性；Java中的子类实例完全可当成父类实例使用
+
 
 # IoC 中 car 对象的配置如下，现在要添加 user 对象，并且将 car 注入到 user 中，正确的配置是？
 
@@ -181,6 +204,7 @@ AnnotationConfigApplicationContext ：使用注解来配置。
 ```
 
 # 请分别写出 IoC 静态工厂方法和实例工厂方法的配置。
+
 
 # IoC 自动装载有几种方式？
 
