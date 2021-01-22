@@ -102,14 +102,21 @@
 [44. 说一下 atomic 的原理](/docs/primary-java-page/Multi-threaded.md?id=_44-说一下-atomic-的原理)
 # 常用设计模式
 ## 结构型模式
-[建造者模式（Builder模式）]
+[ 建造者模式（Builder模式）]
+
 [代理（Proxy）模式](docs/primary-java-page/Design-pattern.md)
+
 [适配（Adapter）模式](docs/primary-java-page/Design-pattern.md)
- [桥接/桥梁（Bridge）模式](docs/primary-java-page/Design-pattern.md)
+
+[桥接/桥梁（Bridge）模式](docs/primary-java-page/Design-pattern.md)
+ 
 [装饰者（Decorator）模式](docs/primary-java-page/Design-pattern.md)
- [外观（Facade）模式](docs/primary-java-page/Design-pattern.md)
+
+[外观（Facade）模式](docs/primary-java-page/Design-pattern.md)
+ 
 [享元（Flyweight）模式](docs/primary-java-page/Design-pattern.md)
- [组合（Composite）模式](docs/primary-java-page/Design-pattern.md)
+
+[组合（Composite）模式](docs/primary-java-page/Design-pattern.md)
 
 # Spring/SpringMVC
 # SpringBoot/SpringCloud
