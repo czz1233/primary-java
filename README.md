@@ -43,7 +43,7 @@
 
 [17. Files的常用方法都有哪些？](/docs/primary-java-page/primary.md?id=_17-files的常用方法都有哪些？)
 # 容器
-## [容器](/docs/primary-java-page/container.md)
+
 
 [18. java 容器都有哪些？](/docs/primary-java-page/container.md?id=_18-java-容器都有哪些？)
 
@@ -102,7 +102,7 @@
 [44. 说一下 atomic 的原理](/docs/primary-java-page/Multi-threaded.md?id=_44-说一下-atomic-的原理)
 # 常用设计模式
 ## 结构型模式
-### [建造者模式（Builder模式）](docs/primary-java-page/Design-pattern.md)
+### [建造者模式（Builder模式）]
 ### [代理（Proxy）模式](docs/primary-java-page/Design-pattern.md)
 ### [适配（Adapter）模式](docs/primary-java-page/Design-pattern.md)
 ### [桥接/桥梁（Bridge）模式](docs/primary-java-page/Design-pattern.md)
